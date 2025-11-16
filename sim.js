@@ -22,10 +22,10 @@ function update() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+  
   // pivot point
   const pivotX = canvas.width / 2;
-  const pivotY = 50;
+  const pivotY = 250;
 
   // pole endpoint
   const endX = pivotX + length * Math.sin(angle);
