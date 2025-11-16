@@ -29,7 +29,8 @@ function draw() {
 
   // pole endpoint
   const endX = pivotX + length * Math.sin(angle);
-  const endY = pivotY + length * Math.cos(angle);
+  const endY = pivotY - length * Math.cos(angle);
+
 
   // draw pole
   ctx.strokeStyle = "#00d5ff";
