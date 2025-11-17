@@ -33,14 +33,14 @@ function drawPole(x1, y1, x2, y2, width) {
   ctx.rotate(rot);
 
   // gradient metal pole
-  const grad = ctx.createLinearGradient(0, -width/2, 0, width/2);
-  grad.addColorStop(0, "#666");
-  grad.addColorStop(0.5, "#bbb");
-  grad.addColorStop(1, "#555");
+  const wood = ctx.createLinearGradient(0, -width/2, 0, width/2);
+  wood.addColorStop(0, "#6b4f2d");
+  wood.addColorStop(0.5, "#8d6e3f");
+  wood.addColorStop(1, "#5a3e20");
 
-  ctx.fillStyle = grad;
+  ctx.fillStyle = wood;
   ctx.beginPath();
-  ctx.roundRect(0, -width/2, Math.hypot(dx, dy), width, width/2);
+  ctx.fillRect(0, -width/2, Math.hypot(dx, dy), width, width/2);
   ctx.fill();
 
   ctx.restore();
@@ -58,12 +58,6 @@ function draw() {
 
   drawPole(pivotX, pivotY, endX, endY, poleWidth);
 
-  // pivot bolt
-  ctx.fillStyle = "#ffffff";
-  ctx.beginPath();
-  ctx.arc(pivotX, pivotY, 8, 0, Math.PI * 2);
-  ctx.fill();
-  
   // angle display
   if (Math.abs(angle) < angleLimit) {
     ctx.fillStyle = "#3afd04ff";
@@ -72,13 +66,11 @@ function draw() {
   }
   ctx.font = "20px monospace";
   ctx.fillText("Angle: " + (angle * 180 / Math.PI).toFixed(2) + "°", 20, 30);
-
 }
 function loop() {
   update();
   draw();
   requestAnimationFrame(loop);
-
 }
 
 loop();
