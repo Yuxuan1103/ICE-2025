@@ -5,18 +5,18 @@ canvas.width = 600;
 canvas.height = 400;
 
 // pole properties
-let angle = Math.PI / 4;      // starting tilt
+let angle = Math.PI/24;      // starting tilt
 let angularVel = 0;
 let angularAcc = 0;
-let length = 150;             // length of the pole
+let length = 250;             // length of the pole
 let gravity = 0.005;          // fake gravity
 let damping = 0.995;          // slows the swinging
-
+let angleLimit = Math.PI/48; // max angle before "falling"
 function update() {
   // pendulum physics
   angularAcc = -gravity * Math.sin(angle);
   angularVel += angularAcc;
-  angularVel *= damping;
+  //angularVel *= damping;
   angle += angularVel;
 }
 
@@ -25,7 +25,7 @@ function draw() {
   
   // pivot point
   const pivotX = canvas.width / 2;
-  const pivotY = 250;
+  const pivotY = 350;
 
   // pole endpoint
   const endX = pivotX + length * Math.sin(angle);
@@ -33,18 +33,22 @@ function draw() {
 
 
   // draw pole
-  ctx.strokeStyle = "#00d5ff";
+  if (Math.abs(angle) > angleLimit) {
+    ctx.strokeStyle = "#ff0400ff";
+  } else {  
+    ctx.strokeStyle = "#11ff00ff";
+  }
   ctx.lineWidth = 6;
   ctx.beginPath();
   ctx.moveTo(pivotX, pivotY);
   ctx.lineTo(endX, endY);
   ctx.stroke();
-
   // draw pivot
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
   ctx.arc(pivotX, pivotY, 8, 0, Math.PI * 2);
   ctx.fill();
+
 }
 
 function loop() {
