@@ -13,13 +13,27 @@ let gravity = 0.005;
 let damping = 0.995;        
 let angleLimit = Math.PI / 48; 
 let poleWidth = 20;
+// 3D angle placeholders
+let pitch = 0;
+let roll = 0;
+let yaw = 0;
 
 // Update physics
 function update() {
   angularAcc = -gravity * Math.sin(angle);
   angularVel += angularAcc;
   angle += angularVel;
+
+  // 3D angles
+  pitch = angle * 180 / Math.PI;
+
+  // fake roll: small sideways sway
+  roll = Math.sin(angle * 2.2) * 10;
+
+  // fake yaw: slow twist
+  yaw = Math.cos(angle * 1.3) * 15;
 }
+
 
 // Draw rectangular pole
 function drawPole(x1, y1, x2, y2, width) {
@@ -51,10 +65,19 @@ function angleDisplay(){
   ctx.font = "20px monospace";
   ctx.fillText("Angle: " + (angle * 180 / Math.PI).toFixed(2) + "°", 20, 30);
 }
+function rotationDisplay() {
+  ctx.fillStyle = "#fff";
+  ctx.font = "18px monospace";
+  ctx.fillText(`Pitch: ${pitch.toFixed(2)}°`, 20, 60);
+  ctx.fillText(`Roll:  ${roll.toFixed(2)}°`, 20, 85);
+  ctx.fillText(`Yaw:   ${yaw.toFixed(2)}°`, 20, 110);
+}
+
 function loop() {
   update();
   draw();
   angleDisplay();
+  rotationDisplay();
   requestAnimationFrame(loop);
 }
 
