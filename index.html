@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Pole Simulation</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>Pole Tilt Simulation</h1>
-  
-  <canvas id="simCanvas"></canvas>
+  <div id="container">
+    <div class="panel">
+      <h2>Pitch</h2>
+      <canvas id="cPitch"></canvas>
+      <div class="val" id="pitchVal">0°</div>
+    </div>
 
-  <script src="sim.js"></script>
-  <div id="angleDisplay" style="color:white; font-family:monospace; font-size:20px;"></div>
+    <div class="panel">
+      <h2>Roll</h2>
+      <canvas id="cRoll"></canvas>
+      <div class="val" id="rollVal">0°</div>
+    </div>
 
+    <div class="panel">
+      <h2>Yaw</h2>
+      <canvas id="cYaw"></canvas>
+      <div class="val" id="yawVal">0°</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

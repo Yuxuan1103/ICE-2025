@@ -1,16 +1,31 @@
 body {
-  background: #0f0f0f;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 1px;
+  background: #111;
+  color: #eee;
+  font-family: sans-serif;
   padding: 20px;
 }
 
-#simCanvas {
-  background: #111;
-  border: 2px solid #444;
-  margin-top: 20px;
-  width: 600px;
-  height: 400px;
+#container {
+  display: flex;
+  gap: 20px;
+}
+
+.panel {
+  background: #222;
+  padding: 15px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+}
+
+canvas {
+  width: 300px;
+  height: 300px;
+  background: #000;
+  border-radius: 8px;
+}
+.val {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: bold;
 }
