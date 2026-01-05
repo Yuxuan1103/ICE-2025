@@ -1,93 +1,140 @@
-document.addEventListener("DOMContentLoaded", () => {
+// ========================
+// Canvas setup
+// ========================
 
-  function setupCanvas(id) {
-    const c = document.getElementById(id);
-    const w = 300, h = 300;
+const pitchCanvas = document.getElementById("pitchCanvas");
+const rollCanvas = document.getElementById("rollCanvas");
+const yawCanvas = document.getElementById("yawCanvas");
 
-    // REAL pixel resolution
-    c.width = w;
-    c.height = h;
+const pitchCtx = pitchCanvas.getContext("2d");
+const rollCtx = rollCanvas.getContext("2d");
+const yawCtx = yawCanvas.getContext("2d");
 
-    return c.getContext("2d");
-  }
+// ========================
+// State
+// ========================
 
-  const ctxPitch = setupCanvas("cPitch");
-  const ctxRoll  = setupCanvas("cRoll");
-  const ctxYaw   = setupCanvas("cYaw");
+let pitch = 0; // radians
+let roll = 0;
+let yaw = 0;
 
-  const pitchEl = document.getElementById("pitchVal");
-  const rollEl  = document.getElementById("rollVal");
-  const yawEl   = document.getElementById("yawVal");
+// Pitch physics (pendulum)
+let pitchVelocity = 0;
+const gravity = 0.8;
+const damping = 0.995;
 
-  let angle = Math.PI / 20;
-  let angularVel = 0;
-  let angularAcc = 0;
+// Time
+let lastTime = performance.now();
 
-  const gravity = 0.008;
-  const damping = 0.995;
-  const length = 120;
-  const poleWidth = 14;
+// ========================
+// Drawing
+// ========================
 
-  function physics() {
-    angularAcc = -gravity * Math.sin(angle);
-    angularVel += angularAcc;
-    angularVel *= damping;
-    angle += angularVel;
+function drawPole(ctx, angle) {
+  const w = ctx.canvas.width;
+  const h = ctx.canvas.height;
 
-    return {
-      pitch: angle * 180 / Math.PI,
-      roll: Math.sin(angle * 2.0) * 12,
-      yaw: Math.cos(angle * 6) * 35
+  ctx.clearRect(0, 0, w, h);
 
-    };
-  }
+  ctx.save();
+  ctx.translate(w / 2, h * 0.9);
+  ctx.rotate(angle);
 
-  function drawPole(ctx, deg) {
-    const w = ctx.canvas.width;
-    const h = ctx.canvas.height;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -h * 0.7);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#ffffff";
+  ctx.stroke();
 
-    ctx.clearRect(0, 0, w, h);
+  ctx.restore();
 
-    const pivotX = w / 2;
-    const pivotY = h - 20;
-    const rad = deg * Math.PI / 180;
+  // base
+  ctx.beginPath();
+  ctx.arc(w / 2, h * 0.9, 6, 0, Math.PI * 2);
+  ctx.fillStyle = "#ff5555";
+  ctx.fill();
+}
 
-    ctx.save();
+// ========================
+// Simulation
+// ========================
 
-    // Move to the pivot
-    ctx.translate(pivotX, pivotY);
+function updatePhysics(dt) {
+  // Pitch pendulum
+  const force = -gravity * Math.sin(pitch);
+  pitchVelocity += force * dt;
+  pitchVelocity *= damping;
+  pitch += pitchVelocity * dt;
 
-    // Canvas 0 rad points to the right, so rotate 90° counterclockwise
-    ctx.rotate(rad - Math.PI / 2);
+  // Placeholder roll & yaw
+  const t = performance.now() * 0.001;
+  roll = Math.sin(t * 0.7) * 0.4;
+  yaw = Math.sin(t * 0.4 + 1) * 0.6;
+}
 
-    // Draw pole extending "up" relative to the pivot
-    ctx.fillStyle = "#9a7442";
-    ctx.fillRect(0, -poleWidth / 2, length, poleWidth);
+// ========================
+// UI update
+// ========================
 
-    ctx.restore();
+function radToDeg(r) {
+  return (r * 180 / Math.PI).toFixed(1);
+}
 
-    // Pivot dot
-    ctx.fillStyle = "#eee";
-    ctx.beginPath();
-    ctx.arc(pivotX, pivotY, 6, 0, Math.PI * 2);
-    ctx.fill();
-  }
+function updateUI() {
+  drawPole(pitchCtx, pitch);
+  drawPole(rollCtx, roll);
+  drawPole(yawCtx, yaw);
 
+  document.getElementById("pitchValue").textContent =
+    `${radToDeg(pitch)}°`;
+  document.getElementById("rollValue").textContent =
+    `${radToDeg(roll)}°`;
+  document.getElementById("yawValue").textContent =
+    `${radToDeg(yaw)}°`;
+}
 
+// ========================
+// Main loop
+// ========================
 
-  function loop() {
-    const { pitch, roll, yaw } = physics();
+function animate(now) {
+  const dt = Math.min((now - lastTime) / 1000, 0.05);
+  lastTime = now;
 
-    pitchEl.textContent = pitch.toFixed(2) + "°";
-    rollEl.textContent  = roll.toFixed(2) + "°";
-    yawEl.textContent   = yaw.toFixed(2) + "°";
+  updatePhysics(dt);
+  updateUI();
 
-    drawPole(ctxPitch, pitch);
-    drawPole(ctxRoll, roll);
-    drawPole(ctxYaw, yaw);
+  requestAnimationFrame(animate);
+}
 
-    requestAnimationFrame(loop);
-  }
+requestAnimationFrame(animate);
 
-  loop();
-});
+// ========================
+// Map + Geolocation
+// ========================
+
+const map = L.map("map").setView([0, 0], 15);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+const marker = L.marker([0, 0]).addTo(map);
+
+if ("geolocation" in navigator) {
+  navigator.geolocation.watchPosition(
+    (pos) => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      marker.setLatLng([lat, lon]);
+      map.setView([lat, lon]);
+    },
+    (err) => {
+      console.error("Geolocation error:", err);
+    },
+    {
+      enableHighAccuracy: true
+    }
+  );
+}

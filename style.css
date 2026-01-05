@@ -1,31 +1,55 @@
-body {
-  background: #111;
-  color: #eee;
-  font-family: sans-serif;
-  padding: 20px;
+* {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
 }
 
-#container {
+body {
+  margin: 0;
+  padding: 20px;
+  background: #0f1115;
+  color: #e6e6e6;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.container {
   display: flex;
+  justify-content: space-around;
   gap: 20px;
 }
 
 .panel {
-  background: #222;
+  background: #171a21;
   padding: 15px;
-  border-radius: 12px;
-  width: 320px;
+  border-radius: 10px;
+  width: 240px;
   text-align: center;
 }
 
 canvas {
-  width: 300px;
-  height: 300px;
-  background: #000;
-  border-radius: 8px;
-}
-.val {
+  background: #0b0d12;
+  border-radius: 6px;
   margin-top: 10px;
-  font-size: 22px;
-  font-weight: bold;
+}
+
+.angle {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #8fd3ff;
+}
+
+.map-panel {
+  margin-top: 30px;
+  background: #171a21;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#map {
+  height: 300px;
+  border-radius: 8px;
 }

@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8" />
+  <title>Pole Orientation Monitor</title>
+  <link rel="stylesheet" href="style.css" />
 
+  <!-- Leaflet map -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+</head>
 <body>
-  <div id="container">
+  <h1>Transmission Pole Orientation Monitor</h1>
+
+  <div class="container">
     <div class="panel">
       <h2>Pitch</h2>
-      <canvas id="cPitch"></canvas>
-      <div class="val" id="pitchVal">0°</div>
+      <canvas id="pitchCanvas" width="200" height="300"></canvas>
+      <div class="angle" id="pitchValue">0°</div>
     </div>
 
     <div class="panel">
       <h2>Roll</h2>
-      <canvas id="cRoll"></canvas>
-      <div class="val" id="rollVal">0°</div>
+      <canvas id="rollCanvas" width="200" height="300"></canvas>
+      <div class="angle" id="rollValue">0°</div>
     </div>
 
     <div class="panel">
       <h2>Yaw</h2>
-      <canvas id="cYaw"></canvas>
-      <div class="val" id="yawVal">0°</div>
+      <canvas id="yawCanvas" width="200" height="300"></canvas>
+      <div class="angle" id="yawValue">0°</div>
     </div>
   </div>
 
+  <div class="map-panel">
+    <h2>Location</h2>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
