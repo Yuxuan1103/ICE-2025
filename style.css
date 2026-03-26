@@ -1,7 +1,6 @@
 :root {
   --bg: #0b0f14;
   --panel: #121821;
-  --panel-light: #171f2b;
   --accent: #4cc9f0;
   --text: #e6edf3;
   --muted: #8b949e;
@@ -10,15 +9,13 @@
   --safe: #4cd964;
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, sans-serif;
 }
 
-/* Body */
 body {
   background: var(--bg);
   color: var(--text);
@@ -29,13 +26,11 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 25px;
 }
 
 h1 {
   font-size: 1.6rem;
-  font-weight: 500;
 }
 
 #currentPole {
@@ -60,78 +55,38 @@ h1 {
 .panel {
   background: var(--panel);
   padding: 18px;
-  border-radius: 14px;
+  border-radius: 12px;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
+  transition: 0.2s;
 }
 
 .panel:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
-
-/* Panel title */
-.panel h2 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--muted);
 }
 
 /* Canvas */
 canvas {
   background: #0b0d12;
-  border-radius: 10px;
-  margin-top: 12px;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
-/* Angle display */
+/* Angle text */
 .angle {
-  margin-top: 12px;
-  font-size: 1.2rem;
-  font-weight: 500;
+  margin-top: 10px;
   color: var(--accent);
+  font-size: 1.2rem;
 }
 
-/* Status indicator dot */
-.panel::after {
-  content: "";
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--muted);
-}
-
-/* Map section */
+/* Map */
 .map-panel {
   margin-top: 30px;
   background: var(--panel);
-  padding: 18px;
-  border-radius: 14px;
-}
-
-.map-panel h2 {
-  margin-bottom: 10px;
-  font-weight: 500;
-  color: var(--muted);
+  padding: 15px;
+  border-radius: 12px;
 }
 
 #map {
   height: 350px;
-  border-radius: 10px;
-}
-
-/* Subtle glow for active elements */
-.active {
-  box-shadow: 0 0 10px rgba(76, 201, 240, 0.4);
-}
-
-/* Smooth transitions */
-.angle,
-.panel,
-#map {
-  transition: all 0.2s ease;
+  border-radius: 8px;
 }

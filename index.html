@@ -2,47 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pole Orientation Monitor</title>
+  <title>GridWatch</title>
+
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Leaflet map -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
-  <h1>Transmission Pole Orientation Monitor</h1>
-  <div class="header">
-    <h1>GridWatch</h1>
-    <div id="currentPole">No pole selected</div>
-  </div>
-  <div class="container">
-    <div class="panel">
-      <h2>Pitch</h2>
-      <canvas id="pitchCanvas" width="200" height="300"></canvas>
-      <div class="angle" id="pitchValue">0°</div>
-    </div>
 
-    <div class="panel">
-      <h2>Roll</h2>
-      <canvas id="rollCanvas" width="200" height="300"></canvas>
-      <div class="angle" id="rollValue">0°</div>
-    </div>
+<div class="header">
+  <h1>GridWatch</h1>
+  <div id="currentPole">No pole selected</div>
+</div>
 
-    <div class="panel">
-      <h2>Yaw</h2>
-      <canvas id="yawCanvas" width="200" height="300"></canvas>
-      <div class="angle" id="yawValue">0°</div>
-    </div>
+<div class="container">
+  <div class="panel">
+    <h2>Pitch</h2>
+    <canvas id="pitchCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="pitchValue">0°</div>
   </div>
 
-  <div class="map-panel">
-    <h2>Location</h2>
-    <div id="map"></div>
+  <div class="panel">
+    <h2>Roll</h2>
+    <canvas id="rollCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="rollValue">0°</div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="script.js"></script>
+  <div class="panel">
+    <h2>Yaw</h2>
+    <canvas id="yawCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="yawValue">0°</div>
+  </div>
+</div>
+
+<div class="map-panel">
+  <h2>Map</h2>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
