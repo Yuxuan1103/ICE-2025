@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktowertilt"]=self["webpackChunktowertilt"]||[]).push([[594],{603:function(t,n,u){u.r(n),u.d(n,{default:function(){return o}});var e=u(56768);const r={class:"about"};function a(t,n){return(0,e.uX)(),(0,e.CE)("div",r,[...n[0]||(n[0]=[(0,e.Lk)("h1",null,"This is an about page",-1)])])}var s=u(71241);const c={},i=(0,s.A)(c,[["render",a]]);var o=i}}]);
+//# sourceMappingURL=about.ed4570d9.js.map

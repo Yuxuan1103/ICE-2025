@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GridWatch</title>
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<div class="header">
+  <h1>GridWatch</h1>
+  <div class="header-right">
+    <span id="systemStatus" class="status-badge disconnected">Disconnected</span>
+    <span id="currentPole">No pole selected</span>
+  </div>
+</div>
+
+<div class="control-bar">
+  <button id="btnLoraConnect" class="ctrl-btn">Connect LoRa</button>
+  <div class="device-control">
+    <label for="deviceIdInput">Device ID:</label>
+    <input id="deviceIdInput" type="number" value="3" min="1" />
+    <button id="btnStartMonitor" class="ctrl-btn">Start Monitor</button>
+    <button id="btnStopMonitor" class="ctrl-btn" disabled>Stop Monitor</button>
+  </div>
+  <div id="loraStatus" class="status-text">LoRa: Not connected</div>
+</div>
+
+<div class="container">
+  <div class="panel">
+    <h2>Pitch</h2>
+    <canvas id="pitchCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="pitchValue">0.0&deg;</div>
+  </div>
+
+  <div class="panel">
+    <h2>Roll</h2>
+    <canvas id="rollCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="rollValue">0.0&deg;</div>
+  </div>
+
+  <div class="panel">
+    <h2>Yaw</h2>
+    <canvas id="yawCanvas" width="200" height="300"></canvas>
+    <div class="angle" id="yawValue">0.0&deg;</div>
+  </div>
+</div>
+
+<div class="map-panel">
+  <h2>Map</h2>
+  <div id="map"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
